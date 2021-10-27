@@ -31,6 +31,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+    environment: sch-backend
 
     steps:
       - name: Checkout repository
@@ -65,6 +66,7 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
+    environment: sch-backend
     permissions:
       packages: read
 
@@ -93,7 +95,7 @@ jobs:
           username: ${{ env.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u smart-city-hack --password-stdin
 
             IMAGE_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }}
             echo IMAGE_TAG=$IMAGE_TAG
