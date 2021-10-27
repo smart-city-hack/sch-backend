@@ -20,6 +20,7 @@
             "warn",
             {
                 "objects": "always-multiline",
+                "arrays": "always-multiline",
                 "functions": "only-multiline"
             }
         ],
@@ -37,6 +38,14 @@
                 "afterColon": true,
                 "mode": "strict"
             }
+        ],
+        "object-curly-spacing": [
+            "warn",
+            "always"
+        ],
+        "indent": [
+            "warn",
+            4
         ]
     }
 }

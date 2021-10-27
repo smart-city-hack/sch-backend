@@ -1,14 +1,13 @@
 import express from 'express'
-import { logger } from './util/Logger'
-import expressPinoLogger from 'express-pino-logger'
+import { log } from './util/Logger'
+import expressWinston from 'express-winston'
 
 const app = express()
 
-app.use(expressPinoLogger({ logger }))
-
-logger.trace('trace')
-logger.debug('debug')
-logger.warn('warn')
+app.use(expressWinston.logger({
+    winstonInstance: log,
+    level: 'info',
+}))
 
 app.get('/', (_req, res) => {
     res.send('Hello, World! Server is running!')
