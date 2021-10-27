@@ -65,7 +65,6 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
-    environment: sch-backend
     permissions:
       packages: read
 
