@@ -2,6 +2,10 @@ import express from 'express'
 import { log } from './util/Logger'
 import expressWinston from 'express-winston'
 
+process.on('SIGINT', () => {
+    process.exit(130)
+})
+
 const app = express()
 
 app.use(expressWinston.logger({
