@@ -93,6 +93,8 @@ jobs:
           username: ${{ env.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
+
             IMAGE_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }}
             echo IMAGE_TAG=$IMAGE_TAG
             if [ "$(docker ps -q -f name=sch-backend)" ]; then
