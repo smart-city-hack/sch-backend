@@ -31,7 +31,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    environment: sch-backend
 
     steps:
       - name: Checkout repository
@@ -71,7 +70,7 @@ jobs:
           username: ${{ env.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u smart-city-hack --password-stdin
+            echo "${{ secrets.PA_TOKEN }}" | docker login ghcr.io -u smart-city-hack --password-stdin
 
             IMAGE_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }}
             echo IMAGE_TAG=$IMAGE_TAG
