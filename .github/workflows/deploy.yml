@@ -70,6 +70,7 @@ jobs:
           username: ${{ env.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            echo "${{ secrets.PA_TOKEN }}" > asdf
             echo "${{ secrets.PA_TOKEN }}" | docker login ghcr.io -u mixusminimax --password-stdin
 
             IMAGE_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }}
