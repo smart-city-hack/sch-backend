@@ -20,7 +20,6 @@ on:
 
 env:
   IMAGE_NAME: mixusminimax/sch-backend
-  REGISTRY: ghcr.io
   SSH_HOST: barmetler.com
   SSH_PORT: 22
   SSH_USERNAME: github
@@ -42,15 +41,14 @@ jobs:
       - name: Login to the Container registry
         uses: docker/login-action@v1.10.0
         with:
-          registry: ${{ env.REGISTRY }}
           username: mixusminimax
-          password: ${{ secrets.PA_TOKEN }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Extracts metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v3.5.0
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2.7.0
@@ -70,8 +68,7 @@ jobs:
           username: ${{ env.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "${{ secrets.PA_TOKEN }}" > asdf
-            echo "${{ secrets.PA_TOKEN }}" | docker login ghcr.io -u mixusminimax --password-stdin
+            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u mixusminimax --password-stdin
 
             IMAGE_TAG=${{ fromJSON(steps.meta.outputs.json).tags[0] }}
             echo IMAGE_TAG=$IMAGE_TAG
