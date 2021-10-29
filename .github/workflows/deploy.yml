@@ -80,5 +80,5 @@ jobs:
             --restart always \
             --name sch-backend \
             --publish 9090:9000 \
-            --env TEST={{ secrets.TEST }} \
+            --env "TEST={{ secrets.TEST }}" \
             $IMAGE_TAG
