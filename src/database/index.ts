@@ -10,5 +10,20 @@ export async function connect(): Promise<void> {
     if (!uri)
         throw new AssertionError('Environment variable "MONGO_URI" is required, but was not found.')
 
-    log.info({ uri })
+    log.info({ mongo_uri: uri })
+
+    await Mongoose.connect(uri, {
+        autoIndex: true,
+    })
+
+    const connection: Connection = Mongoose.connection
+
+    connection.once('open', async () => {
+        log.info('MongoDB connected')
+    })
+
+    connection.on('error', () => {
+        log.error('Error connecting to database')
+    })
+
 }

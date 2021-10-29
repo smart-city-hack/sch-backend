@@ -1,6 +1,7 @@
 import express, { Request } from 'express'
 import { log } from './util/Logger'
 import expressWinston from 'express-winston'
+import { connect } from './database'
 
 process.on('SIGINT', () => {
     process.exit(130)
@@ -44,4 +45,7 @@ app.get('/env', (req, res) => {
     res.send({ TEST: `${process.env.TEST}` })
 })
 
-app.listen(9000, '0.0.0.0')
+
+connect().then(() => {
+    app.listen(9000, '0.0.0.0')
+})
