@@ -21,8 +21,8 @@ type StateRes = {
     message?: string,
 }
 
-userRouter.post('/state', async (req: Request<{ id?: string }, StateRes, StateReq>, res) => {
-    let { id } = req.params
+userRouter.post('/state', async (req: Request<{}, StateRes, StateReq, { id?: string }>, res) => {
+    let { id } = req.query
     const body = req.body
     if (!id) id = 'default'
     const user = await Users.getUserOrCreate(id)
