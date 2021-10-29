@@ -21,9 +21,12 @@
   },
   "homepage": "https://github.com/smart-city-hack/sch-backend#readme",
   "dependencies": {
-    "@typegoose/typegoose": "^9.2.0",
+    "axios": "^0.24.0",
+    "coordinate-parser": "^1.0.7",
     "express": "^4.17.1",
     "express-winston": "^4.2.0",
+    "latlng-conv": "^1.0.4",
+    "@typegoose/typegoose": "^9.2.0",
     "mongoose": "^6.0.12",
     "url-join": "^4.0.1",
     "winston": "^3.3.3",
