@@ -40,4 +40,8 @@ app.post('/test', (req: Request<TestParams, TestRes, TestReq>, res) => {
     res.send({ message: `Hi ${user.name}, your email is ${user.email} and your age ${user.age}!` })
 })
 
+app.get('/env', (req, res) => {
+    res.send({ TEST: `${process.env.TEST}` })
+})
+
 app.listen(9000, '0.0.0.0')
