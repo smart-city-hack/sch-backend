@@ -4,7 +4,7 @@ import Users from "../database/models/user.model"
 export const alexaRouter = Router()
 
 alexaRouter.get('/help', (req, res) => {
-    res.send("I don't have f'ucking eyes, go sh'it yourself you f'ucking idiot.")
+    res.send("I don't have f'ucking eyes, go sh'it yourself you f'ucking idiot. Cun't Fu'ck C'ock Dick Ass T'its")
 })
 
 alexaRouter.get('/state', async (req: Request<{}, any, {}, { id: string }>, res) => {
