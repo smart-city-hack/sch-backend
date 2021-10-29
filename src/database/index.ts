@@ -15,7 +15,7 @@ export async function connect(): Promise<void> {
 
     uri = urljoin(uri, 'main')
 
-    log.info({ mongo_uri: uri })
+    log.debug(`MONGO_URI found.`)
 
     await Mongoose.connect(uri, {
         autoIndex: true,
@@ -24,6 +24,7 @@ export async function connect(): Promise<void> {
     connection = Mongoose.connection
 
     connection.once('open', async () => {
+        console.log('asd')
         log.info('MongoDB connected')
     })
 
