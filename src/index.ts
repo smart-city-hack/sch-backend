@@ -4,6 +4,7 @@ import expressWinston from 'express-winston'
 import { connect, disconnect } from './database'
 import Users from './database/models/user.model'
 import { userRouter } from './routes/user'
+import { alexaRouter } from './routes/alexa'
 
 process.on('SIGINT', () => {
     process.exit(130)
@@ -11,7 +12,7 @@ process.on('SIGINT', () => {
 
 const app = express()
 
-app.use(express.json());
+app.use(express.json())
 
 app.use(expressWinston.logger({
     winstonInstance: log,
@@ -48,6 +49,7 @@ app.get('/env', (req, res) => {
 })
 
 app.use('/user', userRouter)
+app.use('/alexa', alexaRouter)
 
 connect().then(() => {
     app.listen(9000, '0.0.0.0')
