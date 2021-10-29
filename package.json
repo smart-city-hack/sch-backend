@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/smart-city-hack/sch-backend#readme",
   "dependencies": {
+    "axios": "^0.24.0",
+    "coordinate-parser": "^1.0.7",
     "express": "^4.17.1",
     "express-winston": "^4.2.0",
+    "latlng-conv": "^1.0.4",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.5"
   },
