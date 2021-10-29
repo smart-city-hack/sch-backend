@@ -80,4 +80,5 @@ jobs:
             --restart always \
             --name sch-backend \
             --publish 9090:9000 \
+            --env "MONGO_URI=${{ secrets.MONGO_URI }}" \
             $IMAGE_TAG
