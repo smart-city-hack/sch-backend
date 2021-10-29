@@ -1,9 +1,18 @@
-import { prop } from "@typegoose/typegoose";
+import { prop, modelOptions } from "@typegoose/typegoose"
 
+@modelOptions({
+    schemaOptions: {
+        _id: false,
+        id: false,
+        toJSON: {
+            virtuals: true,
+        },
+    },
+})
 export class Coordinates {
-    @prop()
+    @prop({ type: String })
     latitude!: string
 
-    @prop()
+    @prop({ type: String })
     longitude!: string
 }

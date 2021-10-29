@@ -18,8 +18,6 @@ export async function connect(): Promise<void> {
     log.debug(`MONGO_URI found.`)
 
     await Mongoose.connect(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
         autoIndex: true,
     })
 

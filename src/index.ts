@@ -3,6 +3,7 @@ import { log } from './util/Logger'
 import expressWinston from 'express-winston'
 import { connect, disconnect } from './database'
 import Users from './database/models/user.model'
+import { userRouter } from './routes/user'
 
 process.on('SIGINT', () => {
     process.exit(130)
@@ -46,30 +47,7 @@ app.get('/env', (req, res) => {
     res.send({ TEST: `${process.env.TEST}` })
 })
 
-type StateReq = {
-    traffic_light: {
-        visible: boolean,
-        multiple: boolean,
-        non_pedestrian: boolean,
-        red: boolean,
-    },
-    position: {
-        latitude: string,
-        longitude: string,
-    },
-}
-
-type StateRes = {
-    success: boolean,
-    message?: string,
-}
-
-app.post('/state', async (req: Request<{ id?: string }, StateRes, StateReq>, res) => {
-    let { id } = req.params
-    if (!id) id = 'default'
-    const user = await Users.getUserOrCreate(id)
-
-})
+app.use('/user', userRouter)
 
 connect().then(() => {
     app.listen(9000, '0.0.0.0')

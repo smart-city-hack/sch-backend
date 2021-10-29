@@ -2,6 +2,30 @@ import { DocumentType, getModelForClass, modelOptions, prop } from '@typegoose/t
 import { log } from '../../util/Logger'
 import { Coordinates } from './common'
 
+
+@modelOptions({
+    schemaOptions: {
+        id: false,
+        _id: false,
+        toJSON: {
+            virtuals: true,
+        },
+    },
+})
+class TrafficLight {
+    @prop({ type: Boolean })
+    visible!: boolean
+
+    @prop({ type: Boolean })
+    multiple!: boolean
+
+    @prop({ type: Boolean })
+    non_pedestrian!: boolean
+
+    @prop({ type: Boolean })
+    red!: boolean
+}
+
 @modelOptions({
     schemaOptions: {
         id: false,
@@ -16,6 +40,9 @@ export class User {
 
     @prop({ type: Coordinates })
     position!: Coordinates
+
+    @prop({ type: TrafficLight })
+    traffic_light!: TrafficLight
 
     static async getUserOrCreate(id: string): Promise<DocumentType<User>> {
         const doc = await Users.findById(id)
