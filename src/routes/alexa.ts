@@ -14,45 +14,27 @@ alexaRouter.get('/state', async (req: Request<{}, any, {}, { id: string }>, res)
 
     const user = await Users.getUserOrCreate(id)
     if (!user.traffic_light.visible) {
-        res.send({
-            success: false,
-            message: "I don't see a f'ucking traffic light.",
-        })
+        res.send("I don't see a f'ucking traffic light.")
         return
     }
     if (user.traffic_light.multiple) {
-        res.send({
-            success: false,
-            message: "I see multiple f'ucking traffic lights.",
-        })
+        res.send("I see multiple f'ucking traffic lights.")
         return
     }
     if (user.traffic_light.non_pedestrian) {
-        res.send({
-            success: false,
-            message: "I don't see a stupid ass pedestrian traffic light.",
-        })
+        res.send("I don't see a stupid ass pedestrian traffic light.")
         return
     }
     if (user.traffic_light.red === undefined) {
-        res.send({
-            success: false,
-            message: "I can't f'ucking see the stupid color of this mother f'ucking traffic light.",
-        })
+        res.send("I can't f'ucking see the stupid color of this mother f'ucking traffic light.")
         return
     }
     if (user.traffic_light.red === true) {
-        res.send({
-            success: false,
-            message: "The light is red, stay the fu'ck put and do not cross the street.",
-        })
+        res.send("The light is red, stay the fu'ck put and do not cross the street.")
         return
     }
     if (user.traffic_light.red === false) {
-        res.send({
-            success: true,
-            message: "The light is green, take a f'ucking walk.",
-        })
+        res.send("The light is green, take a f'ucking walk.")
         return
     }
 })
