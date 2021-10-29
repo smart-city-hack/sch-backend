@@ -16,42 +16,42 @@ alexaRouter.get('/state', async (req: Request<{}, any, {}, { id: string }>, res)
     if (!user.traffic_light.visible) {
         res.send({
             success: false,
-            message: "I don't see a traffic light.",
+            message: "I don't see a f'ucking traffic light.",
         })
         return
     }
     if (user.traffic_light.multiple) {
         res.send({
             success: false,
-            message: 'I see multiple traffic lights.',
+            message: "I see multiple f'ucking traffic lights.",
         })
         return
     }
     if (user.traffic_light.non_pedestrian) {
         res.send({
             success: false,
-            message: "I don't see a pedestrian traffic light.",
+            message: "I don't see a stupid ass pedestrian traffic light.",
         })
         return
     }
     if (user.traffic_light.red === undefined) {
         res.send({
             success: false,
-            message: "I can't make out the color of the traffic light.",
+            message: "I can't f'ucking see the stupid color of this mother f'ucking traffic light.",
         })
         return
     }
     if (user.traffic_light.red === true) {
         res.send({
             success: false,
-            message: 'The light is red, stay put and do not cross the street.',
+            message: "The light is red, stay the fu'ck put and do not cross the street.",
         })
         return
     }
     if (user.traffic_light.red === false) {
         res.send({
             success: true,
-            message: 'The light is green, you can pass the crossing,',
+            message: "The light is green, take a f'ucking walk.",
         })
         return
     }
