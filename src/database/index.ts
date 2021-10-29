@@ -18,17 +18,23 @@ export async function connect(): Promise<void> {
     log.debug(`MONGO_URI found.`)
 
     await Mongoose.connect(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
         autoIndex: true,
     })
 
     connection = Mongoose.connection
 
     connection.once('open', async () => {
-        console.log('asd')
         log.info('MongoDB connected')
     })
 
     connection.on('error', () => {
         log.error('Error connecting to database')
     })
+}
+
+export async function disconnect(): Promise<void> {
+    if (connection)
+        await Mongoose.disconnect()
 }

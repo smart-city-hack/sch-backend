@@ -1,7 +1,7 @@
 import express, { Request } from 'express'
 import { log } from './util/Logger'
 import expressWinston from 'express-winston'
-import { connect } from './database'
+import { connect, disconnect } from './database'
 
 process.on('SIGINT', () => {
     process.exit(130)
@@ -48,4 +48,9 @@ app.get('/env', (req, res) => {
 
 connect().then(() => {
     app.listen(9000, '0.0.0.0')
+})
+
+process.on('SIGINT', async () => {
+    await disconnect()
+    process.exit(130)
 })
