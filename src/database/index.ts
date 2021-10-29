@@ -2,8 +2,10 @@ import { AssertionError } from 'chai'
 import Mongoose, { Connection } from 'mongoose'
 import { log } from '../util/Logger'
 
+let connection: Connection
+
 export async function connect(): Promise<void> {
-    if (Mongoose.connection)
+    if (connection)
         return
 
     const uri = process.env.MONGO_URI
@@ -16,7 +18,7 @@ export async function connect(): Promise<void> {
         autoIndex: true,
     })
 
-    const connection: Connection = Mongoose.connection
+    connection = Mongoose.connection
 
     connection.once('open', async () => {
         log.info('MongoDB connected')
@@ -25,5 +27,4 @@ export async function connect(): Promise<void> {
     connection.on('error', () => {
         log.error('Error connecting to database')
     })
-
 }
