@@ -12,16 +12,15 @@ const serverApi = axios.create({
 });
 
 export const getOpenMapData = (coordinates: string) => {
-  serverApi
+  return serverApi
     .get("/api/interpreter", {
       params: {
         data: `[out:json];node[\"traffic_signals:sound\"=\"yes\"]${prepareData(coordinates)};out body;`
       }
     })
     .then((res) => {
-      console.log("REQUEST SUCCESS", res);
-      console.log(res.data);
+      return [res.data.elements[0].lat, res.data.elements[0].lon];
     });
 };
 
-getOpenMapData("52:31:19.1712N 13:24:47.6784E");
+// getOpenMapData("52:31:19.1712N 13:24:47.6784E");

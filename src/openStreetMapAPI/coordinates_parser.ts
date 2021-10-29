@@ -14,7 +14,6 @@ export function getBoundingBoxCoordinates(coordinate: string) {
     var rightUpper = createBoundingBox(longitude, latitude, 0.01, -0.01);
     var rightLower = createBoundingBox(longitude, latitude, 0.01, 0.01);
 
-    // return [leftUpper, leftLower, rightUpper, rightLower];
     // latitude south, longitude west, latitude north, longitude east
     return [leftLower[0], rightUpper[1], rightUpper[0], leftLower[1]];
 }
@@ -22,4 +21,3 @@ export function getBoundingBoxCoordinates(coordinate: string) {
 
 var coordinates = "52:31:19.1712N 13:24:47.6784E";
 var result = getBoundingBoxCoordinates(coordinates);
-console.log(result);
