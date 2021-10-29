@@ -26,8 +26,8 @@ userRouter.post('/state', async (req: Request<{}, StateRes, StateReq, { id?: str
     const body = req.body
     if (!id) id = 'default'
     const user = await Users.getUserOrCreate(id)
-    user.position = body.position
-    user.traffic_light = body.traffic_light
+    if (body.position) user.position = body.position
+    if (body.traffic_light) user.traffic_light = body.traffic_light
     user.save()
     res.send({ success: true, message: `Traffic light: ${JSON.stringify(user.traffic_light)}` })
 })
