@@ -1,5 +1,6 @@
-import { Request, Router } from "express"
-import Users from "../database/models/user.model"
+import { Request, Router } from 'express'
+import Users from '../database/models/user.model'
+import { getNextTrafficLight } from '../openStreetMapAPI/next_trafficlight'
 
 export const alexaRouter = Router()
 
@@ -37,4 +38,18 @@ alexaRouter.get('/state', async (req: Request<{}, any, {}, { id: string }>, res)
         res.send("The light is green, take a f'ucking walk.")
         return
     }
+})
+
+alexaRouter.get('/nearby', async (req: Request<any, any, any, { id: string }>, res) => {
+    let { id } = req.query
+    if (!id)
+        id = 'default'
+
+    const user = await Users.getUserOrCreate(id)
+
+    let distance = await getNextTrafficLight(`${user.position.latitude} ${user.position.longitude}`)
+
+    distance = 300
+
+    res.send(`Walk ${distance}m down the road.`)
 })
