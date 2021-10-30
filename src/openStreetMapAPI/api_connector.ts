@@ -19,7 +19,7 @@ export const getOpenMapData = (coordinates: string) => {
       }
     })
     .then((res) => {
-      return [res.data.elements[0].lat, res.data.elements[0].lon];
+      return res.data.elements; 
     });
 };
 

@@ -50,7 +50,10 @@ alexaRouter.get('/nearby', async (req: Request<any, any, any, { id: string }>, r
     let distance = await getNextTrafficLight(`${user.position.latitude} ${user.position.longitude}`)
         .catch(e => undefined)
 
-    distance = 300
+    if(distance == -1) {
+        res.send(`No nearby traffic lights found.`)
+        return;
+    }
 
     res.send(`Walk ${distance}m down the road.`)
-})
+});

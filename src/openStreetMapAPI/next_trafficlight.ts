@@ -4,19 +4,21 @@ export async function getNextTrafficLight(coordinates: string) {
     var Coordinates = require('coordinate-parser')
     var position = new Coordinates(coordinates)
 
+
     var latitude = position.getLatitude()
     var longitude = position.getLongitude()
 
-    let data = await getOpenMapData(coordinates)
+    let data: any[] = await getOpenMapData(coordinates)
 
-    var next_latitude = data[0]
-    console.log(next_latitude)
+    let distance = -1;
+    for(let element of data) {
+        var pot_lat = element.lat;
+        var pot_lon = element.lon;
 
-    var next_longitude = data[1]
-    console.log(next_longitude)
-
-    var distance = getDistanceFromLatLonInKm(latitude, longitude, next_latitude, next_longitude)
-    console.log(distance)
+        distance = getDistanceFromLatLonInKm(latitude, longitude, pot_lat, pot_lon);
+        if(distance > 0.05)
+            break;
+    }
 
     return distance
 }
@@ -29,7 +31,7 @@ function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
         Math.sin(dLon / 2) * Math.sin(dLon / 2)
-        
+
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
     var d = R * c // Distance in km
     return d
