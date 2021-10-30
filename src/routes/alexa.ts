@@ -61,5 +61,6 @@ alexaRouter.get('/nearby', async (req: Request<any, any, any, { id: string }>, r
 alexaRouter.get('/storeuser', async (req, res) => {
     const user = await Users.getUserOrCreate('alexa')
     user.position = { latitude: JSON.stringify(req.headers), longitude: "" }
+    await user.save()
     res.send('done')
 })
