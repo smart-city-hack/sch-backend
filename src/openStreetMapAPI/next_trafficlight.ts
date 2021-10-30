@@ -10,17 +10,17 @@ export async function getNextTrafficLight(coordinates: string) {
 
     let data: any[] = await getOpenMapData(coordinates)
 
-    let distance = -1;
-    for(let element of data) {
-        var pot_lat = element.lat;
-        var pot_lon = element.lon;
+    let distance = -1
+    for (let element of data) {
+        var pot_lat = element.lat
+        var pot_lon = element.lon
 
-        distance = getDistanceFromLatLonInKm(latitude, longitude, pot_lat, pot_lon);
-        if(distance > 0.05)
-            break;
+        const distance_tmp = getDistanceFromLatLonInKm(latitude, longitude, pot_lat, pot_lon)
+        if (distance_tmp > 0.01 && (distance_tmp < distance || distance < 0))
+            distance = distance_tmp
     }
 
-    return distance
+    return distance > 0 ? distance : undefined
 }
 
 function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon2: number) {
