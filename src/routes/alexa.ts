@@ -48,6 +48,7 @@ alexaRouter.get('/nearby', async (req: Request<any, any, any, { id: string }>, r
     const user = await Users.getUserOrCreate(id)
 
     let distance = await getNextTrafficLight(`${user.position.latitude} ${user.position.longitude}`)
+        .catch(e => undefined)
 
     distance = 300
 
