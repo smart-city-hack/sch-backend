@@ -21,7 +21,7 @@ alexaRouter.get('/state', async (req: Request<unknown, string, unknown, { id: st
             res.send('No nearby traffic lights found.')
             return
         }
-        res.send(`I don't see a traffic light right now. Walk ${Math.round(distance * 1000)}m down the road.`)
+        res.send(`I don't see a traffic light right now. Walk ${Math.round(distance * 1000)}m down the road. Alternatively, I can call a relative.`)
         return
     }
     if (user.traffic_light.multiple) {
