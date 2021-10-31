@@ -15,7 +15,13 @@ alexaRouter.get('/state', async (req: Request<unknown, string, unknown, { id: st
 
     const user = await Users.getUserOrCreate(id)
     if (!user.traffic_light.visible) {
-        res.send("I don't see a traffic light right now.")
+        const distance = await getNextTrafficLight(`${user.position.latitude} ${user.position.longitude}`)
+            .catch(() => undefined);
+        if (distance == undefined) {
+            res.send('No nearby traffic lights found.')
+            return
+        }
+        res.send(`I don't see a traffic light right now. Walk ${Math.round(distance * 1000)}m down the road.`)
         return
     }
     if (user.traffic_light.multiple) {
