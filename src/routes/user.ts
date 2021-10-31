@@ -1,4 +1,4 @@
-import express, { Router, Request } from 'express'
+import { Request, Router } from 'express'
 import Users from '../database/models/user.model'
 
 export const userRouter = Router()
@@ -21,7 +21,7 @@ type StateRes = {
     message?: string,
 }
 
-userRouter.post('/state', async (req: Request<{}, StateRes, StateReq, { id?: string }>, res) => {
+userRouter.post('/state', async (req: Request<unknown, StateRes, StateReq, { id?: string }>, res) => {
     let { id } = req.query
     const body = req.body
     if (!id) id = 'default'

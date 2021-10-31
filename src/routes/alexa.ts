@@ -4,54 +4,54 @@ import { getNextTrafficLight } from '../openStreetMapAPI/next_trafficlight'
 
 export const alexaRouter = Router()
 
-alexaRouter.get('/help', (req, res) => {
-    res.send("You f'ucking Cu'nt. Go f'uck yourself you stupid piece of sh'it.")
+alexaRouter.get('/help', (_req, res) => {
+    res.send('Say "Help me" to request help.')
 })
 
-alexaRouter.get('/state', async (req: Request<{}, any, {}, { id: string }>, res) => {
+alexaRouter.get('/state', async (req: Request<unknown, string, unknown, { id: string }>, res) => {
     let { id } = req.query
     if (!id)
         id = 'default'
 
     const user = await Users.getUserOrCreate(id)
     if (!user.traffic_light.visible) {
-        res.send("I don't see a f'ucking traffic light.")
+        res.send("I don't see a traffic light right now.")
         return
     }
     if (user.traffic_light.multiple) {
-        res.send("I see multiple f'ucking traffic lights.")
+        res.send('I see multiple traffic lights.')
         return
     }
     if (user.traffic_light.non_pedestrian) {
-        res.send("I don't see a stupid ass pedestrian traffic light.")
+        res.send("I don't see a pedestrian traffic light.")
         return
     }
     if (user.traffic_light.red === undefined) {
-        res.send("I can't f'ucking see the stupid color of this mother f'ucking traffic light.")
+        res.send("I can't make out the color of this traffic light.")
         return
     }
     if (user.traffic_light.red === true) {
-        res.send("The light is red, stay the fu'ck put and do not cross the street.")
+        res.send("The light is red, stay put and don't cross the street.")
         return
     }
     if (user.traffic_light.red === false) {
-        res.send("The light is green, take a f'ucking walk.")
+        res.send('The light is green, you can go across the road.')
         return
     }
 })
 
-alexaRouter.get('/nearby', async (req: Request<any, any, any, { id: string }>, res) => {
+alexaRouter.get('/nearby', async (req: Request<unknown, string, unknown, { id: string }>, res) => {
     let { id } = req.query
     if (!id)
         id = 'default'
 
     const user = await Users.getUserOrCreate(id)
 
-    let distance = await getNextTrafficLight(`${user.position.latitude} ${user.position.longitude}`)
-        .catch(e => undefined)
+    const distance = await getNextTrafficLight(`${user.position.latitude} ${user.position.longitude}`)
+        .catch(() => undefined)
 
     if (distance == undefined) {
-        res.send(`No nearby traffic lights found.`)
+        res.send('No nearby traffic lights found.')
         return
     }
 
@@ -60,7 +60,7 @@ alexaRouter.get('/nearby', async (req: Request<any, any, any, { id: string }>, r
 
 alexaRouter.post('/storeuser', async (req, res) => {
     const user = await Users.getUserOrCreate('alexa')
-    user.position = { latitude: JSON.stringify(req.body), longitude: "" }
+    user.position = { latitude: JSON.stringify(req.body), longitude: '' }
     await user.save()
     res.send('done')
 })
